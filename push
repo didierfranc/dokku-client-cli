@@ -1,0 +1,42 @@
+#!/bin/sh
+
+clear
+echo "Dokku Client CLI 0.0.1"
+
+repo=`cat repo.txt`
+
+if [[ $1 && $1 = '-f' ]]; then f=true; else f=false; fi
+
+function showme {
+  last=`git log -n 1 | grep Date | sed -E 's/(Date:)( )+//' | sed -E 's/( \+.*)//'`
+  echo "\n🚀  $repo\n📅  $last\n"
+}
+
+function commit {
+    git add . &> /dev/null
+    c=`git commit -m "CLI Push"`
+}
+
+function pushtodokku {
+  if [[ $c = *nothing* ]] && [[ $f = false ]]
+  then
+    echo 'There is nothing to push'
+  else
+    git push $repo master  
+  fi
+}
+
+if [ ! -d .git ]
+then
+  git init &> /dev/null
+  echo 'node_modules' > .gitignore
+  commit
+  showme
+  pushtodokku
+else
+  showme
+  commit
+  pushtodokku
+fi
+
+echo ''
