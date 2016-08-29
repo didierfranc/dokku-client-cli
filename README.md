@@ -20,5 +20,5 @@ $ push -f
 Add `push` command to OSX Terminal :
 
 ```
-cd /usr/local/bin; curl -O https://raw.githubusercontent.com/didierfranc/dokku-client-cli/master/push; chmod +x push
+cd /usr/local/bin && curl -O https://raw.githubusercontent.com/didierfranc/dokku-client-cli/master/push && chmod +x push
 ```
